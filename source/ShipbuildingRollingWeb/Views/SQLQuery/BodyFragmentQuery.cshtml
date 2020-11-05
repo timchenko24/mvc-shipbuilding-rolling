@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ShipbuildingRollingWeb.Models.DB.BodyFragmentDB>
+
+@{
+    ViewBag.Title = "BodyFragment SQL";
+}
+
+@section styles{
+    @Styles.Render("~/Content/query.css");
+}
+
+@section Body{
+
+    <div class="container db-content">
+        <div class="row">
+            <h3>Введите SQL-запрос</h3>
+            @using (Html.BeginForm())
+            {
+                @Html.Label("Select");
+                @Html.TextBox("query");
+                @Html.Label("from BodyFragment");
+                @Html.TextBox("query");
+                <input type="submit" value="Выполнить" class="btn btn-default" />
+            }
+        </div>
+        @if (Model != null)
+        {
+            <div class="container db-content">
+                <div class="row">
+                    <table class="table table-hover col-sm-12">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Designation)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Designation)
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+}
+

@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Chart";
+}
+
+@section Body{
+    
+    <div class="container db-content">
+        <div class="row" style="margin-top: 100px">
+            <div class="col-sm-8 col-sm-offset-2">
+                @Html.DevExpress().Chart(settings => {
+               settings.Name = "BodyFragment_RollingNumber";
+               settings.Series.Add(s => {
+                   s.SetDataMembers("BodyFragment_Name", "RollingNumber");
+                   s.Views().SideBySideBarSeriesView(v =>
+                   {
+                       v.FillStyle.FillMode = DevExpress.XtraCharts.FillMode.Solid;
+                   });
+                   settings.Titles.Add(t =>
+                   {
+                       t.Text = "Кол-во проката, использованного для каждого фрагмента корпуса";
+                   });
+                   settings.XYDiagram(d =>
+                   {
+                       d.AxisY.Title.Text = "Кол-во проката";
+                       d.AxisY.Title.Visibility = DefaultBoolean.True;
+                   });
+                   settings.Width = 800;
+                   settings.Height = 360;
+               });
+                    }).Bind(Model).GetHtml()
+            </div>
+        </div>
+        <div class="row" style="margin-top: 100px">
+            <div class="col-sm-8 col-sm-offset-2">
+                @Html.DevExpress().Chart(settings => {
+                settings.Name = "chart";
+                settings.Height = 500;
+                settings.Width = 920;
+                settings.BorderOptions.Visibility = DefaultBoolean.False;
+
+                settings.Legends.Default(l => {
+                    l.AlignmentHorizontal = LegendAlignmentHorizontal.Left;
+                });
+
+                settings.Series.Template(t => {
+                    t.ArgumentDataMember = "Year";
+                    t.ValueDataMembers[0] = "RollingNumber";
+                });
+
+                settings.XYDiagram(d => {
+                    d.AxisX.DateTimeScaleOptions.MeasureUnit = DateTimeMeasureUnit.Year;
+                    d.AxisX.DateTimeScaleOptions.GridAlignment = DateTimeGridAlignment.Year;
+                    d.AxisX.DateTimeScaleOptions.GridSpacing = 5;
+                    d.AxisX.DateTimeScaleOptions.GridOffset = -1;
+                    d.AxisX.WholeRange.SideMarginsValue = 2;
+                    d.AxisX.GridLines.Visible = true;
+                    d.AxisX.Interlaced = true;
+                    d.AxisX.Title.Text = "Года";
+                    d.AxisY.WholeRange.AlwaysShowZeroLevel = false;
+                    d.AxisY.Title.Text = "Кол-во проката";
+                    d.AxisY.Title.Visibility = DefaultBoolean.True;
+                });
+
+                settings.Titles.Add(new ChartTitle() {
+                    Text = "Кол-во проката, использованного каждым судостроительным предприятием\nпо годам"
+                });
+            }).Bind(Model, "Company_Name").GetHtml()
+            </div>
+        </div>
+    </div>
+
+}
+

@@ -1,0 +1,57 @@
+﻿@model ShipbuildingRollingWeb.Models.DB.BodyFragmentDB
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@section Body {
+
+    <div class="container db-content">
+        <div class="row">
+
+            <h2>Удаление</h2>
+
+            <h3>Подтверждение удаления</h3>
+            <div>
+                <h4>Фрагменты корпуса</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Designation)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Designation)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RollingDB.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.RollingDB.Name)
+                    </dd>
+
+                </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Удалить" class="btn btn-default" />
+                    </div>
+                }
+            </div>
+            @Html.ActionLink("Назад", "Index")
+        </div>
+    </div>
+}

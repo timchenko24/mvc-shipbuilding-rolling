@@ -1,0 +1,73 @@
+﻿@model ShipbuildingRollingWeb.Models.IndexViewModel
+@{
+    ViewBag.Title = "Управление";
+}
+
+@section Body{
+
+    <h2>@ViewBag.Title.</h2>
+
+    <div class="container db-content">
+        <div class="row">
+            <p class="text-success">@ViewBag.StatusMessage</p>
+            <div>
+                <h4>Изменение параметров учетной записи</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>Пароль:</dt>
+                    <dd>
+                        [
+                        @if (Model.HasPassword)
+                        {
+                            @Html.ActionLink("Смена пароля", "ChangePassword")
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Создать", "SetPassword")
+                        }
+                        ]
+                    </dd>
+                    @if (ViewBag.Admin)
+                    {
+                        <dt>Список пользователей:</dt>
+                        <dd>
+                            [@Html.ActionLink("Управление", "ManageLogins")]
+                        </dd>
+                    }
+
+                    @if (ViewBag.Admin || ViewBag.User)
+                    {
+                        <dt>Сводная таблица хранилища данных OLAP: </dt>
+                        <dd>
+                            [@Html.ActionLink("Просмотреть", "OLAPPivotGrid")]
+                        </dd>
+                        <dt>Графики:</dt>
+                        <dd>
+                            [@Html.ActionLink("Просмотреть", "Chart")]
+                        </dd>
+                    }
+                </dl>
+
+                @if (ViewBag.Admin)
+                {
+                    <hr />
+                    <h4>SQL-запрос</h4>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                            Выберете таблицу
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Фрагменты корпуса", "BodyFragmentQuery", "SQLQuery")</li>
+                            <li>@Html.ActionLink("Судостроительные предприятия", "CompanyQuery", "SQLQuery")</li>
+                            <li>@Html.ActionLink("Чертежи", "DrawingQuery", "SQLQuery")</li>
+                            <li>@Html.ActionLink("Производители", "ProducerQuery", "SQLQuery")</li>
+                            <li>@Html.ActionLink("Поставщики", "ProviderQuery", "SQLQuery")</li>
+                            <li>@Html.ActionLink("Прокат", "RollingQuery", "SQLQuery")</li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,83 @@
+﻿@model IEnumerable<ShipbuildingRollingWeb.Models.DB.RollingDB>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section styles{
+    @Styles.Render("~/Content/navbar.css");
+}
+
+@section Body {
+
+    <div class="container db-content">
+        <div class="row">
+
+            <table class="table table-hover col-sm-12">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Document)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Form)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Processing)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProducerDB.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProvidersDB.Name)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Document)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Form)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Processing)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProducerDB.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProvidersDB.Name)
+                        </td>
+                        @if (ViewBag.Admin)
+                        {
+                            <td>
+                                @Html.ActionLink("Редактировать", "Edit", new { id = item.ID }) |
+                                @Html.ActionLink("Подробнее", "Details", new { id = item.ID }) |
+                                @Html.ActionLink("Удалить", "Delete", new { id = item.ID })
+                            </td>
+                        }
+                    </tr>
+                }
+
+            </table>
+
+            @if (ViewBag.Admin)
+            {
+                <div class="btn btn-default" role="button">
+                @Html.ActionLink("Добавить", "Create")
+                </div>
+            }
+        </div>
+    </div>
+}

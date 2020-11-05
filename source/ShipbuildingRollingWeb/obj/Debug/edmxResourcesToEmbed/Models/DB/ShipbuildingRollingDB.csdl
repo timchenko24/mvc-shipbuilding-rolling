@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ShipbuildingRollingDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BodyFragmentDB">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="RollingID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="Designation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="RollingDB" Relationship="Self.FK_BodyFragmentDB_RollingDB" FromRole="BodyFragmentDB" ToRole="RollingDB" />
+    <NavigationProperty Name="DrawingDB" Relationship="Self.FK_DrawingDB_BodyFragmentDB" FromRole="BodyFragmentDB" ToRole="DrawingDB" />
+  </EntityType>
+  <EntityType Name="CompanyDB">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Specialization" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DrawingDB" Relationship="Self.FK_DrawingDB_CompanyDB" FromRole="CompanyDB" ToRole="DrawingDB" />
+  </EntityType>
+  <EntityType Name="DrawingDB">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="BodyFragmentID" Type="Int32" Nullable="false" />
+    <Property Name="CompanyID" Type="Int32" Nullable="false" />
+    <Property Name="Data" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Format" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="BodyFragmentDB" Relationship="Self.FK_DrawingDB_BodyFragmentDB" FromRole="DrawingDB" ToRole="BodyFragmentDB" />
+    <NavigationProperty Name="CompanyDB" Relationship="Self.FK_DrawingDB_CompanyDB" FromRole="DrawingDB" ToRole="CompanyDB" />
+  </EntityType>
+  <EntityType Name="ProducerDB">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="80" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="150" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="RollingDB" Relationship="Self.FK_RollingDB_ProducerDB" FromRole="ProducerDB" ToRole="RollingDB" />
+  </EntityType>
+  <EntityType Name="ProvidersDB">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="RollingDB" Relationship="Self.FK_RollingDB_ProvidersDB" FromRole="ProvidersDB" ToRole="RollingDB" />
+  </EntityType>
+  <EntityType Name="RollingDB">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ProviderID" Type="Int32" Nullable="false" />
+    <Property Name="ProducerID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Document" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Form" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="Processing" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="BodyFragmentDB" Relationship="Self.FK_BodyFragmentDB_RollingDB" FromRole="RollingDB" ToRole="BodyFragmentDB" />
+    <NavigationProperty Name="ProducerDB" Relationship="Self.FK_RollingDB_ProducerDB" FromRole="RollingDB" ToRole="ProducerDB" />
+    <NavigationProperty Name="ProvidersDB" Relationship="Self.FK_RollingDB_ProvidersDB" FromRole="RollingDB" ToRole="ProvidersDB" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_BodyFragmentDB_RollingDB">
+    <End Role="RollingDB" Type="Self.RollingDB" Multiplicity="1" />
+    <End Role="BodyFragmentDB" Type="Self.BodyFragmentDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RollingDB">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BodyFragmentDB">
+        <PropertyRef Name="RollingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DrawingDB_BodyFragmentDB">
+    <End Role="BodyFragmentDB" Type="Self.BodyFragmentDB" Multiplicity="1" />
+    <End Role="DrawingDB" Type="Self.DrawingDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BodyFragmentDB">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DrawingDB">
+        <PropertyRef Name="BodyFragmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DrawingDB_CompanyDB">
+    <End Role="CompanyDB" Type="Self.CompanyDB" Multiplicity="1" />
+    <End Role="DrawingDB" Type="Self.DrawingDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CompanyDB">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DrawingDB">
+        <PropertyRef Name="CompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RollingDB_ProducerDB">
+    <End Role="ProducerDB" Type="Self.ProducerDB" Multiplicity="1" />
+    <End Role="RollingDB" Type="Self.RollingDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProducerDB">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RollingDB">
+        <PropertyRef Name="ProducerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RollingDB_ProvidersDB">
+    <End Role="ProvidersDB" Type="Self.ProvidersDB" Multiplicity="1" />
+    <End Role="RollingDB" Type="Self.RollingDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProvidersDB">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RollingDB">
+        <PropertyRef Name="ProviderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ShipbuildingRollingDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BodyFragmentDB" EntityType="Self.BodyFragmentDB" />
+    <EntitySet Name="CompanyDB" EntityType="Self.CompanyDB" />
+    <EntitySet Name="DrawingDB" EntityType="Self.DrawingDB" />
+    <EntitySet Name="ProducerDB" EntityType="Self.ProducerDB" />
+    <EntitySet Name="ProvidersDB" EntityType="Self.ProvidersDB" />
+    <EntitySet Name="RollingDB" EntityType="Self.RollingDB" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK_BodyFragmentDB_RollingDB" Association="Self.FK_BodyFragmentDB_RollingDB">
+      <End Role="RollingDB" EntitySet="RollingDB" />
+      <End Role="BodyFragmentDB" EntitySet="BodyFragmentDB" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DrawingDB_BodyFragmentDB" Association="Self.FK_DrawingDB_BodyFragmentDB">
+      <End Role="BodyFragmentDB" EntitySet="BodyFragmentDB" />
+      <End Role="DrawingDB" EntitySet="DrawingDB" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DrawingDB_CompanyDB" Association="Self.FK_DrawingDB_CompanyDB">
+      <End Role="CompanyDB" EntitySet="CompanyDB" />
+      <End Role="DrawingDB" EntitySet="DrawingDB" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RollingDB_ProducerDB" Association="Self.FK_RollingDB_ProducerDB">
+      <End Role="ProducerDB" EntitySet="ProducerDB" />
+      <End Role="RollingDB" EntitySet="RollingDB" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RollingDB_ProvidersDB" Association="Self.FK_RollingDB_ProvidersDB">
+      <End Role="ProvidersDB" EntitySet="ProvidersDB" />
+      <End Role="RollingDB" EntitySet="RollingDB" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ShipbuildingRollingDBModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ShipbuildingRollingDBModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

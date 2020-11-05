@@ -1,0 +1,109 @@
+@section styles{
+    @Styles.Render("~/Content/navbar.css");    
+}
+
+@Html.DevExpress().PivotGrid(settings => {
+    settings.Name = "PivotGrid";
+    settings.CallbackRouteValues = new { Controller = "Manage", Action = "PivotGrid" };
+    settings.Width = System.Web.UI.WebControls.Unit.Pixel(600);
+
+    settings.OptionsDataField.RowValueLineCount = 8;
+
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Name";
+        field.Caption = "Производитель";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Provider_Name";
+        field.Caption = "Поставщик";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Rolling_Name";
+        field.Caption = "Наименование проката";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Document";
+        field.Caption = "Документ";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Form";
+        field.Caption = "Форма";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Processing";
+        field.Caption = "Обработка";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Company_Name";
+        field.Caption = "Судостроительное предприятие";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Specialization";
+        field.Caption = "Специализация";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "SheetNumber";
+        field.Caption = "Кол-во страниц";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.DataArea;
+        field.FieldName = "RollingNumber";
+        field.Caption = "Число проката";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Date";
+        field.Caption = "Дата";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Hour";
+        field.Caption = "Часы";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Day";
+        field.Caption = "День";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Week";
+        field.Caption = "Неделя";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Weekday";
+        field.Caption = "День недели";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.RowArea;
+        field.AreaIndex = 1;
+        field.FieldName = "Month";
+        field.Caption = "Месяц";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Quarter";
+        field.Caption = "Квартал";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.RowArea;
+        field.AreaIndex = 0;
+        field.FieldName = "Year";
+        field.Caption = "Год";
+    });
+    settings.Fields.Add(field => {
+        field.Area = PivotArea.ColumnArea;
+        field.FieldName = "BodyFragment_Name";
+        field.Caption = "Фрагмент корпуса";
+    });
+}).Bind(Model).GetHtml()

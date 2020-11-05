@@ -1,0 +1,81 @@
+﻿@model ShipbuildingRollingWeb.Models.DB.RollingDB
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@section Body {
+
+    <div class="container db-content">
+        <div class="row">
+
+            <h2>Удаление</h2>
+
+            <h3>Подтверждение удаления</h3>
+            <div>
+                <h4>Прокат</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Document)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Document)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Form)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Form)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Processing)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Processing)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ProducerDB.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ProducerDB.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ProvidersDB.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ProvidersDB.Name)
+                    </dd>
+
+                </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Удалить" class="btn btn-default" />
+                    </div>
+                }
+            </div>
+            @Html.ActionLink("Назад", "Index")
+        </div>
+    </div>
+}

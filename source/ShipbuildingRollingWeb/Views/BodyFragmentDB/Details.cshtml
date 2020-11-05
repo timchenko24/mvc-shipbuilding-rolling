@@ -1,0 +1,50 @@
+﻿@model ShipbuildingRollingWeb.Models.DB.BodyFragmentDB
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@section Body {
+
+<div class="container db-content">
+    <div class="row">
+
+        <h2>Сведения</h2>
+
+        <div>
+            <h4>Фрагменты корпуса</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Designation)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Designation)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.RollingDB.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.RollingDB.Name)
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Редактировать", "Edit", new { id = Model.ID }) |
+            @Html.ActionLink("Назад", "Index")
+        </p>
+    </div>
+</div>
+}

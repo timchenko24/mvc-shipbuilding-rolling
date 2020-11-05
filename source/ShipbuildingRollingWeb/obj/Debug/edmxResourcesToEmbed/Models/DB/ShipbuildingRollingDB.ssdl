@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище ShipbuildingRollingDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BodyFragmentDB">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="RollingID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="120" />
+    <Property Name="Designation" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="CompanyDB">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="150" />
+    <Property Name="Specialization" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="DrawingDB">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="BodyFragmentID" Type="int" Nullable="false" />
+    <Property Name="CompanyID" Type="int" Nullable="false" />
+    <Property Name="Data" Type="smalldatetime" Nullable="false" />
+    <Property Name="Format" Type="varchar" MaxLength="80" />
+  </EntityType>
+  <EntityType Name="ProducerDB">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nchar" MaxLength="80" Nullable="false" />
+    <Property Name="Address" Type="nchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="ProvidersDB">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="RollingDB">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ProviderID" Type="int" Nullable="false" />
+    <Property Name="ProducerID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Document" Type="varchar" MaxLength="100" />
+    <Property Name="Form" Type="varchar" MaxLength="60" />
+    <Property Name="Processing" Type="varchar" MaxLength="60" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_BodyFragmentDB_RollingDB">
+    <End Role="RollingDB" Type="Self.RollingDB" Multiplicity="1" />
+    <End Role="BodyFragmentDB" Type="Self.BodyFragmentDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RollingDB">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BodyFragmentDB">
+        <PropertyRef Name="RollingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DrawingDB_BodyFragmentDB">
+    <End Role="BodyFragmentDB" Type="Self.BodyFragmentDB" Multiplicity="1" />
+    <End Role="DrawingDB" Type="Self.DrawingDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BodyFragmentDB">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DrawingDB">
+        <PropertyRef Name="BodyFragmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DrawingDB_CompanyDB">
+    <End Role="CompanyDB" Type="Self.CompanyDB" Multiplicity="1" />
+    <End Role="DrawingDB" Type="Self.DrawingDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CompanyDB">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DrawingDB">
+        <PropertyRef Name="CompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RollingDB_ProducerDB">
+    <End Role="ProducerDB" Type="Self.ProducerDB" Multiplicity="1" />
+    <End Role="RollingDB" Type="Self.RollingDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProducerDB">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RollingDB">
+        <PropertyRef Name="ProducerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RollingDB_ProvidersDB">
+    <End Role="ProvidersDB" Type="Self.ProvidersDB" Multiplicity="1" />
+    <End Role="RollingDB" Type="Self.RollingDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProvidersDB">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RollingDB">
+        <PropertyRef Name="ProviderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="Хранилище ShipbuildingRollingDBModelContainer">
+    <EntitySet Name="BodyFragmentDB" EntityType="Self.BodyFragmentDB" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CompanyDB" EntityType="Self.CompanyDB" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DrawingDB" EntityType="Self.DrawingDB" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProducerDB" EntityType="Self.ProducerDB" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProvidersDB" EntityType="Self.ProvidersDB" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RollingDB" EntityType="Self.RollingDB" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_BodyFragmentDB_RollingDB" Association="Self.FK_BodyFragmentDB_RollingDB">
+      <End Role="RollingDB" EntitySet="RollingDB" />
+      <End Role="BodyFragmentDB" EntitySet="BodyFragmentDB" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DrawingDB_BodyFragmentDB" Association="Self.FK_DrawingDB_BodyFragmentDB">
+      <End Role="BodyFragmentDB" EntitySet="BodyFragmentDB" />
+      <End Role="DrawingDB" EntitySet="DrawingDB" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DrawingDB_CompanyDB" Association="Self.FK_DrawingDB_CompanyDB">
+      <End Role="CompanyDB" EntitySet="CompanyDB" />
+      <End Role="DrawingDB" EntitySet="DrawingDB" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RollingDB_ProducerDB" Association="Self.FK_RollingDB_ProducerDB">
+      <End Role="ProducerDB" EntitySet="ProducerDB" />
+      <End Role="RollingDB" EntitySet="RollingDB" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RollingDB_ProvidersDB" Association="Self.FK_RollingDB_ProvidersDB">
+      <End Role="ProvidersDB" EntitySet="ProvidersDB" />
+      <End Role="RollingDB" EntitySet="RollingDB" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,22 @@
+﻿<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Судостроительный прокат", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Поставщики", "Provider", "Home")</li>
+                <li>@Html.ActionLink("Производители", "Producer", "Home")</li>
+                <li>@Html.ActionLink("Виды проката", "Rolling", "Home")</li>
+                <li>@Html.ActionLink("Судостроительные предприятия", "Company", "Home")</li>
+                <li>@Html.ActionLink("Фрагменты корпуса", "BodyFragment", "Home")</li>
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+﻿@model ShipbuildingRollingWeb.Models.DB.CompanyDB
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@section Body {
+
+    <div class="container db-content">
+        <div class="row">
+
+            <h2>Удаление</h2>
+
+            <h3>Подтверждение удаления</h3>
+            <div>
+                <h4>Судостроительные предприятия</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Address)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Specialization)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Specialization)
+                    </dd>
+
+                </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Удалить" class="btn btn-default" /> |
+                    </div>
+                }
+            </div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+}

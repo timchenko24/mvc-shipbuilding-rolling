@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@section styles{
+    @Styles.Render("~/Content/index.css");
+}
+
+@section Body{
+    <div class="jumbotron">
+    </div>
+
+    <div class="container main">
+        <div class="row text-center">
+            <br><br>
+            <div class="col-sm-4">
+                <i class="fa fa-ship"></i>
+                <h4>
+                    @Html.ActionLink("Фрагменты корпуса", "Index", "BodyFragmentDB")
+                </h4>
+                <p>
+                    Фрагменты корпуса, их краткие обозначения и название проката, из которого они сделаны
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <i class="fa fa-anchor"></i>
+                <h4>
+                    @Html.ActionLink("Судостроительные предприятия", "Index", "CompanyDB")
+                </h4>
+                <p>
+                    Названия судостроительных предприятий, их юридические адреса и основная специализация
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <i class="fa fa-pencil"></i>
+                <h4>
+                    @Html.ActionLink("Чертежи", "Index", "DrawingDB")
+                </h4>
+                <p>
+                    Каждый чертеж разработан для конкретного фрагмента корпуса, одним из судостроительных предприятий 
+                    и имеет дату своего создания, а также формат
+                </p>
+            </div>
+        </div>
+        <div class="row text-center row-space">
+            <br /><br />
+            <div class="col-sm-4">
+                <i class="fa fa-truck"></i>
+                <h4>
+                    @Html.ActionLink("Поставщики", "Index", "ProvidersDB")
+                </h4>
+                <p>
+                    Названия компаний, поставляющих судостроительный прокат от производителей проката к
+                    судостроительным предприятиям
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <i class="fa fa-industry"></i>
+                <h4>
+                    @Html.ActionLink("Производители", "Index", "ProducerDB")
+                </h4>
+                <p>
+                    Названия компаний, производящих судостроительный прокат и их юридические адреса
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <i class="fa fa-square"></i>
+                <h4>
+                    @Html.ActionLink("Прокат", "Index", "RollingDB")
+                </h4>
+                <p>
+                    Каждое наименование проката содержит информацию о производителе,
+                    поставщике, документе на данный прокат, форме и виду обработке
+                </p>
+            </div>
+        </div>
+    </div>
+}

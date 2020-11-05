@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "OLAP";
+}
+
+@section styles{
+    @Styles.Render("~/Content/pivotGrid.css");
+}
+
+@section Body{
+
+    <div class="container db-content grid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4>Сводная таблица хранилища данных OLAP</h4>
+                @Html.Action("PivotGrid")
+            </div>
+        </div>
+    </div>
+
+}
+

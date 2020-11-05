@@ -1,0 +1,38 @@
+﻿* {
+    font-family: Candara;
+    color: #222;
+}
+
+.navbar {
+    font-weight: 800;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 100px;
+    background: #a94442;
+}
+
+.navbar-inverse .navbar-brand {
+    font-weight: bold;
+    font-family: "Franklin Gothic";
+    font-size: 30px;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 5px black;
+}
+
+.navbar-inverse .container .navbar-collapse .navbar-nav .active a {
+    -webkit-box-shadow: inset 0px 0px 68px -2px rgba(214,214,214,1);
+    -moz-box-shadow: inset 0px 0px 68px -2px rgba(214,214,214,1);
+    box-shadow: inset 0px 0px 68px -2px rgba(214,214,214,1);
+    background: #a94442;
+}
+
+.navbar-inverse .container .navbar-collapse .navbar-nav li:hover {
+    -webkit-box-shadow: inset 0px 0px 68px -2px rgba(214,214,214,1);
+    -moz-box-shadow: inset 0px 0px 68px -2px rgba(214,214,214,1);
+    box-shadow: inset 0px 0px 68px -2px rgba(214,214,214,1);
+    background: #a94442;
+}
+
+.navbar.transparent.navbar-inverse .navbar-inner {
+    background: rgba(0,0,0,0.4);
+}

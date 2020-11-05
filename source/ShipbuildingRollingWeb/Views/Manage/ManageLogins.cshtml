@@ -1,0 +1,51 @@
+﻿@model ShipbuildingRollingWeb.Models.ListUserViewModel
+@using Microsoft.Owin.Security
+
+@{
+    ViewBag.Title = "Управление внешними именами входа";
+}
+
+@section Body{
+    <h2>@ViewBag.Title.</h2>
+
+    <div class="container db-content">
+        <div class="row">
+
+            <table class="table table-hover col-sm-12">
+                <thead>
+                    <tr>
+                        <th>
+                            Имя пользователя (Email)
+                        </th>
+                        <th>
+                            Роль
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @{
+                    int i = 0;
+                }
+                @foreach (var item in Model.users)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Model.roles[i]
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("Delete", "ManageController", new { id = item.Id, role = item.Roles.ToString() }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="submit" value="Удалить" class="btn btn-danger" />
+                            }
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </table>
+        </div>
+    </div>
+}
